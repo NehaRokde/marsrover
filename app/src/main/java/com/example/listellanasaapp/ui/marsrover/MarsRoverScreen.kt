@@ -1,6 +1,7 @@
 package com.example.listellanasaapp.ui.marsrover
 
 import android.annotation.SuppressLint
+import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
@@ -27,12 +28,6 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun MarsRoverScreen() {
-    TabLayoutScreen()
-}
-
-@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
-@Composable
-fun TabLayoutScreen() {
 
     Scaffold(
         modifier = Modifier.fillMaxSize()
@@ -41,15 +36,23 @@ fun TabLayoutScreen() {
             TabBar()
         }
     }
-
 }
+
 
 @Composable
 fun TabBar() {
     var tabIndex by remember { mutableStateOf(0) }
     val tabTitles = listOf("Curiosity", "Opportunity", "Spirit")
-    Column {
-        TabRow(selectedTabIndex = tabIndex) {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(MaterialTheme.colors.background)
+    ) {
+        TabRow(
+            selectedTabIndex = tabIndex,
+            backgroundColor = Color.Black,
+            contentColor = Color.White
+        ) {
             tabTitles.forEachIndexed { index, title ->
                 Tab(selected = tabIndex == index,
                     onClick = { tabIndex = index },
@@ -68,5 +71,5 @@ fun TabBar() {
 @Preview(showBackground = true)
 @Composable
 fun MainScreenPreview() {
-    TopBar()
+    MarsRoverScreen()
 }

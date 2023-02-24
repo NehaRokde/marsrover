@@ -19,7 +19,6 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.rememberAsyncImagePainter
 import com.example.listellanasaapp.data.api.model.Photo
 import com.example.listellanasaapp.ui.marsrover.MarsRoverViewModel
-import com.example.listellanasaapp.ui.recentphotos.LazyVerticalGridView
 import com.example.listellanasaapp.util.Constants
 
 @Composable
