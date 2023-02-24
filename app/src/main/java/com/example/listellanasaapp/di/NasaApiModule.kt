@@ -1,7 +1,8 @@
 package com.example.listellanasaapp.di
 
 import com.example.listellanasaapp.BuildConfig
-import com.example.listellanasaapp.data.api.NasaAPI
+import com.example.listellanasaapp.data.api.NasaAPIService
+import com.example.listellanasaapp.repository.NasaRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -40,7 +41,12 @@ object NasaApiModule {
 
     @Provides
     @Singleton
-    fun provideApi(retrofit: Retrofit):NasaAPI{
-        return retrofit.create(NasaAPI::class.java)
+    fun provideApi(retrofit: Retrofit): NasaAPIService {
+        return retrofit.create(NasaAPIService::class.java)
+    }
+
+    @Provides
+    fun provideMainRepository(apiService: NasaAPIService): NasaRepository {
+        return NasaRepository(apiService)
     }
 }
