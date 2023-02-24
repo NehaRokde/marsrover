@@ -27,7 +27,7 @@ fun SpiritScreen(viewModel: MarsRoverViewModel = hiltViewModel()) {
     val result = viewModel.list.value
 
     LaunchedEffect(Unit, block = {
-        viewModel.getMarsRoverPhotos(Constants.SPIRIT, Constants.CAMERA_FHAZ)
+        viewModel.getMarsRoverPhotos(Constants.SPIRIT, Constants.CAMERA_NAVCAM)
     })
 
     Surface(modifier = Modifier.fillMaxSize()) {

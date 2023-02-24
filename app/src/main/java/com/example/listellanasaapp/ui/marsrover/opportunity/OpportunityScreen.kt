@@ -29,7 +29,7 @@ fun OpportunityScreen(viewModel: MarsRoverViewModel = hiltViewModel()){
     val result = viewModel.list.value
 
     LaunchedEffect(Unit, block = {
-        viewModel.getMarsRoverPhotos(Constants.OPPORTUNITY, Constants.CAMERA_FHAZ)
+        viewModel.getMarsRoverPhotos(Constants.OPPORTUNITY, Constants.CAMERA_PANCAM)
     })
     Log.d("TAG", "ashish: $result")
     Surface(modifier = Modifier.fillMaxSize()) {

@@ -7,9 +7,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.SnackbarDefaults.backgroundColor
 import androidx.compose.material.TabRowDefaults.tabIndicatorOffset
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
@@ -20,90 +18,50 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.listellanasaapp.MainScreen
 import com.example.listellanasaapp.R
+import com.example.listellanasaapp.TopBar
+import com.example.listellanasaapp.ui.marsrover.curosity.CuriosityScreen
+import com.example.listellanasaapp.ui.marsrover.spirit.SpiritScreen
 import com.google.accompanist.pager.*
 import com.google.android.material.tabs.TabLayout
 import kotlinx.coroutines.launch
 
 @Composable
 fun MarsRoverScreen() {
-
     TabLayoutScreen()
 }
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
-@OptIn(ExperimentalPagerApi::class)
 @Composable
 fun TabLayoutScreen() {
 
-    val tabs = listOf(
-        TabItem.Curiosity,
-        TabItem.Opportunity,
-        TabItem.Spirit
-    )
-    val pagerState = rememberPagerState(tabs.size)
     Scaffold(
         modifier = Modifier.fillMaxSize()
     ) { padding ->
         Column(modifier = Modifier.padding(padding)) {
-            Tabs(tabs = tabs, pagerState = pagerState)
-            TabsContent(tabs = tabs, pagerState = pagerState)
+            TabBar()
         }
     }
 
 }
 
-@OptIn(ExperimentalPagerApi::class)
 @Composable
-fun Tabs(tabs: List<TabItem>, pagerState: PagerState) {
-    val scope = rememberCoroutineScope()
-    // OR ScrollableTabRow()
-    TabRow(
-        selectedTabIndex = pagerState.currentPage,
-        backgroundColor = colorResource(id = R.color.black),
-        contentColor = Color.White,
-        indicator = { tabPositions ->
-            TabRowDefaults.Indicator(
-                Modifier.pagerTabIndicatorOffset(pagerState, tabPositions)
-            )
-        }) {
-        tabs.forEachIndexed { index, tabPage ->
-            // OR Tab()
-            LeadingIconTab(
-                icon = {},
-                text = { Text(tabPage.title) },
-                selected = pagerState.currentPage == index,
-                onClick = {
-                    scope.launch {
-                        pagerState.animateScrollToPage(index)
-                    }
-                },
-            )
+fun TabBar() {
+    var tabIndex by remember { mutableStateOf(0) }
+    val tabTitles = listOf("Curiosity", "Opportunity", "Spirit")
+    Column {
+        TabRow(selectedTabIndex = tabIndex) {
+            tabTitles.forEachIndexed { index, title ->
+                Tab(selected = tabIndex == index,
+                    onClick = { tabIndex = index },
+                    text = { Text(text = title) })
+            }
+        }
+        when (tabIndex) {
+            0 -> CuriosityScreen()
+            1 -> OpportunityScreen()
+            2 -> SpiritScreen()
         }
     }
-}
-
-@OptIn(ExperimentalPagerApi::class)
-@Composable
-fun TabsContent(tabs: List<TabItem>, pagerState: PagerState) {
-    HorizontalPager(state = pagerState) { page ->
-        tabs[page].screen()
-    }
-    HorizontalPagerIndicator(
-        pagerState = pagerState,
-        modifier = Modifier.padding(16.dp),
-    )
-
-
-}
-
-
-@Composable
-fun TopBar() {
-    TopAppBar(
-        title = { Text(text = stringResource(R.string.app_name), fontSize = 18.sp) },
-        backgroundColor = colorResource(id = R.color.purple_200),
-        contentColor = Color.White
-    )
 }
 
 
