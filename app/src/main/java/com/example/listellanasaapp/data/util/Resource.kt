@@ -1,4 +1,6 @@
-package com.example.listellanasaapp.util
+package com.example.listellanasaapp.data.util
+
+import retrofit2.Response
 
 sealed class Resource<T>(
     val data: T? = null,

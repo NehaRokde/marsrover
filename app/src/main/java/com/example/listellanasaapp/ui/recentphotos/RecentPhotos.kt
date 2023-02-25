@@ -6,6 +6,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -43,12 +44,15 @@ fun RecentPhotosScreen(viewModel: RecentPhotosViewModel = hiltViewModel()) {
                 RecentPhotoFullImage(
                     navController = navController,
                     it.arguments?.getString("imageurl")
+
                 )
             }
 
         }
     }
 }
+
+
 
 @Preview(showBackground = true)
 @Composable

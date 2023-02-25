@@ -1,8 +1,8 @@
-package com.example.listellanasaapp.di
+package com.example.listellanasaapp.presentation.di
 
 import com.example.listellanasaapp.BuildConfig
 import com.example.listellanasaapp.data.api.NasaAPIService
-import com.example.listellanasaapp.repository.NasaRepository
+import com.example.listellanasaapp.domain.repository.NasaRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

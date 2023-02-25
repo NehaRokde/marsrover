@@ -14,16 +14,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.rememberAsyncImagePainter
-import com.example.listellanasaapp.data.api.model.Photo
+import com.example.listellanasaapp.data.model.Photo
+import com.example.listellanasaapp.ui.marsrover.ImageView
 import com.example.listellanasaapp.ui.marsrover.MarsRoverViewModel
-import com.example.listellanasaapp.util.Constants
+import com.example.listellanasaapp.data.util.Constants
 
 @Composable
 fun SpiritScreen(viewModel: MarsRoverViewModel = hiltViewModel()) {
 
-    val query: MutableState<String> = remember {
-        mutableStateOf("")
-    }
     val result = viewModel.list.value
 
     LaunchedEffect(Unit, block = {
@@ -41,15 +39,15 @@ fun SpiritScreen(viewModel: MarsRoverViewModel = hiltViewModel()) {
         if (result.error.isNotBlank()) {
             Log.d("TAG", "MainContent: ${result.error}")
             Box(modifier = Modifier.fillMaxSize()) {
-                Text(text = viewModel.list.value.error, modifier = Modifier.align(Alignment.Center))
+                Text(text = result.error, modifier = Modifier.align(Alignment.Center))
             }
         }
 
         if (result.data.isNotEmpty()) {
             Log.d("TAG", "MainContent: ${result.data.size}")
-            val photoList = viewModel.list.value.data
+            val photoList = result.data
             if (photoList.isNotEmpty()) {
-                com.example.listellanasaapp.ui.marsrover.curosity.ImageView(photoList)
+                ImageView(photo = photoList)
             } else {
                 Box(modifier = Modifier.fillMaxSize()) {
                     Text(text = "No Data Found", modifier = Modifier.align(Alignment.Center))
@@ -57,25 +55,5 @@ fun SpiritScreen(viewModel: MarsRoverViewModel = hiltViewModel()) {
             }
         }
     }
-
-}
-
-@Composable
-fun ImageView(photo: List<Photo>) {
-    val imagerPainter = rememberAsyncImagePainter(model = photo.get(0).imgSrc)
-
-    Card(
-        modifier = Modifier
-            .fillMaxSize()
-    ) {
-        Image(
-            painter = imagerPainter,
-            contentDescription = "",
-            modifier = Modifier
-                .fillMaxSize(),
-            contentScale = ContentScale.Crop
-        )
-    }
-
 
 }

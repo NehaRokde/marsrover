@@ -1,4 +1,4 @@
-package com.example.listellanasaapp.data.api.model
+package com.example.listellanasaapp.data.model
 
 
 import com.google.gson.annotations.SerializedName

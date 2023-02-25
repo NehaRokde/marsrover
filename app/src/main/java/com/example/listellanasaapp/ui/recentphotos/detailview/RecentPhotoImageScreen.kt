@@ -1,6 +1,7 @@
 package com.example.listellanasaapp.ui.recentphotos.detailview
 
 import android.util.Log
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -22,7 +23,7 @@ fun RecentPhotoFullImage(
         Image(
             painter = imagerPainter,
             contentDescription = null,
-            contentScale = ContentScale.Crop,
+            contentScale = ContentScale.FillHeight,
             modifier = Modifier
                 .fillMaxSize()
         )

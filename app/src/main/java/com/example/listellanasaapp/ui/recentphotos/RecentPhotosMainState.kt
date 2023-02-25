@@ -1,8 +1,8 @@
 package com.example.listellanasaapp.ui.recentphotos
 
 import android.provider.ContactsContract.CommonDataKinds.Phone
-import com.example.listellanasaapp.data.api.model.Photo
-import com.example.listellanasaapp.data.api.model.RecentPhotosResponseItem
+import com.example.listellanasaapp.data.model.Photo
+import com.example.listellanasaapp.data.model.RecentPhotosResponseItem
 
 data class RecentPhotosMainState(
     val isLoading: Boolean = false,

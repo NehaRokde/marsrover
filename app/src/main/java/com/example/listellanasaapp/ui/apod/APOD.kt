@@ -32,7 +32,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImagePainter.State.Empty.painter
 import coil.compose.rememberAsyncImagePainter
 import coil.compose.rememberImagePainter
-import com.example.listellanasaapp.data.api.model.APODResponse
+import com.example.listellanasaapp.data.model.APODResponse
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 @Preview
@@ -42,13 +42,17 @@ fun APODScreen() {
     val state by viewModel.state.collectAsState()
 
 
-//    APODPhotoOfTheDayView(state)
-    ImageAndText(state)
+    Surface(
+        modifier = Modifier.fillMaxSize(),
+        color = MaterialTheme.colors.background
+    ) {
+        APODPhotoOfTheDayView(state)
+    }
 
 }
 
 @Composable
-fun ImageAndText(
+fun APODPhotoOfTheDayView(
     apodResponse: APODResponse?
 ) {
     val imagerPainter = rememberAsyncImagePainter(model = apodResponse?.hdurl)
@@ -73,7 +77,8 @@ fun ImageAndText(
         Row(
             Modifier
                 .height(56.dp)
-                .fillMaxWidth().background(color = Color.Black),
+                .fillMaxWidth()
+                .background(color = Color.Black),
             verticalAlignment = Alignment.CenterVertically
         ) {
             Text(
@@ -82,12 +87,14 @@ fun ImageAndText(
                 style = TextStyle(
                     fontWeight = FontWeight.ExtraBold,
                     fontSize = 20.sp
-                    ),
+                ),
                 color = White
             )
             Spacer(Modifier.weight(1f))
             Text(
-                modifier = Modifier.alpha(0.9f).padding(10.dp),
+                modifier = Modifier
+                    .alpha(0.9f)
+                    .padding(10.dp),
                 text = apodResponse?.date.toString(),
                 style = MaterialTheme.typography.h4,
                 color = White,

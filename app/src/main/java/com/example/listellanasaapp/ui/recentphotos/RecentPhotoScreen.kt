@@ -19,7 +19,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import coil.compose.rememberAsyncImagePainter
-import com.example.listellanasaapp.data.api.model.RecentPhotosResponseItem
+import com.example.listellanasaapp.data.model.RecentPhotosResponseItem
 import java.net.URLEncoder
 import java.nio.charset.StandardCharsets
 
@@ -29,29 +29,26 @@ fun RecentPhotoScreen(
     navController: NavController
 ) {
 
-
     val viewModel: RecentPhotosViewModel = hiltViewModel()
     val result = viewModel.list.value
+
     LaunchedEffect(Unit, block = {
         viewModel.getRecentPhotos(50)
     })
 
     if (result.isLoading) {
-        Log.d("TAG", "MainContent: in the loading")
         Box(modifier = Modifier.fillMaxSize()) {
             CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
         }
     }
 
     if (result.error.isNotBlank()) {
-        Log.d("TAG", "MainContent: ${result.error}")
         Box(modifier = Modifier.fillMaxSize()) {
             Text(text = viewModel.list.value.error, modifier = Modifier.align(Alignment.Center))
         }
     }
 
     if (result.data.isNotEmpty()) {
-        Log.d("TAG", "MainContent: ${result.data.size}")
         val photoList = viewModel.list.value.data
         if (photoList.isNotEmpty()) {
             ImageGallery(
@@ -87,21 +84,24 @@ fun ImageGallery(
                     shape = RoundedCornerShape(10.dp)
 
                 ) {
-                    val imagerPainter = rememberAsyncImagePainter(model = photo[index].hdurl)
-                    Log.d("TAG", "imagerPainter: ${photo[index].hdurl}")
+                    if (photo.isNotEmpty() && photo[index].hdurl!=null) {
+                        val imagerPainter = rememberAsyncImagePainter(model = photo[index].hdurl)
+                        val encodedUrl = URLEncoder.encode(
+                            photo.get(index).hdurl,
+                            StandardCharsets.UTF_8.toString()
+                        )
 
-                    val encodedUrl = URLEncoder.encode(photo.get(index).hdurl, StandardCharsets.UTF_8.toString())
-
-                    Image(
-                        painter = imagerPainter,
-                        contentDescription = "",
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .clickable {
-                                navController.navigate("full_image/$encodedUrl")
-                            },
-                        contentScale = ContentScale.Crop,
-                    )
+                        Image(
+                            painter = imagerPainter,
+                            contentDescription = "",
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .clickable {
+                                    navController.navigate("full_image/$encodedUrl")
+                                },
+                            contentScale = ContentScale.Crop,
+                        )
+                    }
                 }
             }
         }

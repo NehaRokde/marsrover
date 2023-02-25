@@ -1,10 +1,10 @@
-package com.example.listellanasaapp.repository
+package com.example.listellanasaapp.domain.repository
 
 import com.example.listellanasaapp.data.api.NasaAPIService
-import com.example.listellanasaapp.data.api.model.APODResponse
-import com.example.listellanasaapp.data.api.model.MarsRoverPhotosResponse
-import com.example.listellanasaapp.data.api.model.RecentPhotosResponse
-import com.example.listellanasaapp.util.Resource
+import com.example.listellanasaapp.data.model.APODResponse
+import com.example.listellanasaapp.data.model.MarsRoverPhotosResponse
+import com.example.listellanasaapp.data.model.RecentPhotosResponse
+import com.example.listellanasaapp.data.util.Resource
 import javax.inject.Inject
 
 class NasaRepository @Inject constructor(
@@ -26,6 +26,7 @@ class NasaRepository @Inject constructor(
             Resource.Error(e.message.toString())
         }
     }
+
     suspend fun getMarsRoverPhotos(
         roverPath: String,
         camera: String
@@ -38,5 +39,6 @@ class NasaRepository @Inject constructor(
             Resource.Error(e.message.toString())
         }
     }
+
 
 }

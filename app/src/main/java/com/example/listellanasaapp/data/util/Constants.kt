@@ -1,4 +1,4 @@
-package com.example.listellanasaapp.util
+package com.example.listellanasaapp.data.util
 
 object Constants {
     const val API_KEY = "DEMO_KEY"

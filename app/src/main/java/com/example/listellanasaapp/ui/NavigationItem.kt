@@ -1,4 +1,4 @@
-package com.example.listellademoapp.presentation.ui.view
+package com.example.listellanasaapp.ui
 
 import com.example.listellanasaapp.R
 
