@@ -81,25 +81,31 @@ fun APODPhotoOfTheDayView(
                 .background(color = Color.Black),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Text(
-                modifier = Modifier.alpha(0.9f).padding(10.dp),
-                text = apodResponse?.title.toString(),
-                style = TextStyle(
-                    fontWeight = FontWeight.ExtraBold,
-                    fontSize = 20.sp
-                ),
-                color = White
-            )
+            if (apodResponse != null) {
+                Text(
+                    modifier = Modifier
+                        .alpha(0.9f)
+                        .padding(10.dp),
+                    text = apodResponse.title.toString(),
+                    style = TextStyle(
+                        fontWeight = FontWeight.ExtraBold,
+                        fontSize = 20.sp
+                    ),
+                    color = White
+                )
+            }
             Spacer(Modifier.weight(1f))
-            Text(
-                modifier = Modifier
-                    .alpha(0.9f)
-                    .padding(10.dp),
-                text = apodResponse?.date.toString(),
-                style = MaterialTheme.typography.h4,
-                color = White,
-                fontSize = 20.sp
-            )
+            if (apodResponse != null) {
+                Text(
+                    modifier = Modifier
+                        .alpha(0.9f)
+                        .padding(10.dp),
+                    text = apodResponse.date.toString(),
+                    style = MaterialTheme.typography.h4,
+                    color = White,
+                    fontSize = 20.sp
+                )
+            }
         }
 
     }
